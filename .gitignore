@@ -1,2 +1,6 @@
 /version
 .DS_Store
+/env
+db.sqlite3
+ __pycache__/
+*.pyc
