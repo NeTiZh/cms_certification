@@ -1,0 +1,44 @@
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+{% get_settings %}
+{% comment %} récupère le site en cours, site.root_page correspond à la page d'accueil {% endcomment %}
+{% wagtail_site as site %}
+
+{% comment %} Logo : renvoie vers l'accueil. Sans logo défini, on affiche le nom en texte {% endcomment %}
+<header class="site-header bandeau">
+    <a class="site-header_logo" href="/">
+        {% if settings.pages.ReglagesSite.logo %}
+        {% image settings.pages.ReglagesSite.logo height-48 alt="Korthon, retour à l'accueil" %}
+        {% else %}
+        Korthon
+        {% endif %}
+    </a>
+
+    {% comment %} Menu principal, construit à partir de l'arbre des pages {% endcomment %}
+    <nav class="site-header_nav" aria-label="Menu principal">
+        <ul>
+            {% comment %} L'accueil n'est pas un enfant de lui-même : on l'ajoute séparément {% endcomment %}
+            <li>
+                <a href="{% pageurl site.root_page %}"{% if page.pk == site.root.pk %} class="actif" aria-current="page"{% endif %}>
+                    {{ site.root_page.title}}
+                </a>
+            </li>
+
+            {% comment %} Pages situées sous l'accueil, publiées, avec "Afficher dans les menus" coché {% endcomment %}
+            {% for item in site.root_page.get_children.live.in_menu %}
+            <li>
+                {% comment %} "actif" et aria-current marquent la page en cours {% endcomment %}
+                <a href="{% pageurl item %}"{% if page.pk == item.pk %} class="actif" aria-current="page"{% endif %}>
+                    {{ item.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    {% comment %} Bouton d'invitation du bot, affiché seulement si le lien est renseigné {% endcomment %}
+    {% if settings.pages.ReglagesSite.lien_invitation %}
+        <a class="site-header_invitation bouton" href="{{ settings.pages.ReglagesSite.lien_invitation }}" target="_blank" rel="noopener">
+            Ajouter à mon serveur ↗
+        </a>
+    {% endif %}
+</header>

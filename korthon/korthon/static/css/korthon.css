@@ -1,0 +1,152 @@
+/* ========== Variables ==========
+   Couleurs tirées du logo : bois foncé, or, parchemin */
+:root {
+    --couleur-fond: #fbf7ee;          /* fond des pages, parchemin */
+    --couleur-texte: #2b1d12;         /* texte, bois foncé */
+    --couleur-lien: #8a5a14;          /* liens dans les pages, ambre foncé */
+    --couleur-bandeau: #2b1d12;       /* fond du header et du footer */
+    --couleur-bandeau-texte: #f5ecd7; /* texte sur les bandeaux, crème */
+    --couleur-accent: #d4a43a;        /* or du phénix : page active, bouton */
+    --largeur-max: 1100px;
+    --espace: 1rem;
+    --arrondi: 6px;
+}
+
+/* ========== Base ========== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    color: var(--couleur-texte);
+    background: var(--couleur-fond);
+
+    /* Le footer reste en bas, même sur une page courte */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--largeur-max);
+    margin: 0 auto;
+    padding: calc(var(--espace) * 2) var(--espace);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--couleur-lien);
+}
+
+/* Focus visible au clavier (accessibilité) */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--couleur-lien);
+    outline-offset: 2px;
+}
+
+/* ========== Classes réutilisables ========== */
+
+/* Bandeau sombre : commun au header et au footer */
+.bandeau {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace);
+    padding: var(--espace) calc(var(--espace) * 2);
+    background: var(--couleur-bandeau);
+    color: var(--couleur-bandeau-texte);
+}
+
+/* Sur fond sombre, l'ambre ne se verrait pas : contour en or */
+.bandeau a:focus-visible {
+    outline-color: var(--couleur-accent);
+}
+
+/* Bouton doré, réutilisable sur toutes les pages */
+.bouton {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: var(--arrondi);
+    background: var(--couleur-accent);
+    color: var(--couleur-texte);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.bouton:hover {
+    background: var(--couleur-bandeau-texte);
+}
+
+/* ========== Header ========== */
+
+.site-header_logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.site-header_logo img {
+    display: block;
+}
+
+/* Logo et liens du menu : couleur du bandeau, sans soulignement */
+.site-header_logo,
+.site-header_nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.site-header_nav ul {
+    display: flex;
+    gap: calc(var(--espace) / 2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-header_nav a {
+    display: block;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--arrondi);
+}
+
+.site-header_nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Page en cours : en or et soulignée */
+.site-header_nav a.actif {
+    color: var(--couleur-accent);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+/* ========== Footer ========== */
+
+/* Seulement ce qui diffère du header */
+.site-footer {
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+.site-footer a {
+    color: var(--couleur-accent);
+}
