@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags%}
+
+{% block body_class %}contact-page{% endblock %}
+
+{% block content%}
+    <article class="contact">
+        <h1>{{ page.title }}</h1>
+
+        {{ page.intro|richtext }}
+    
+        {% comment %} Le formulaire s'envoie à la page elle-même : wagtail enregistre le message {% endcomment %}
+        <form action="{% pageurl page%}" method="post">
+            {% comment %} Jeton de sécurité obligatoire : emp^che un autre site d'envoyé le formulaire à ta place {% endcomment %}
+            {% csrf_token %}
+
+            {% comment %} Les champs créés dans l'admin, affichés un par un {% endcomment %}
+            {% for field in form %}
+                <div class="champ">
+                    {% comment %} Label reelié au champ : cliquer sur le text place le curseur dans le champ {% endcomment %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        {% comment %} L'id relie ce texte au champ : Django ajoute aria-describedby="..._helptext" au champ, donc un lecteur d'écran lit le texte d'aide en même temps que le libellé {% endcomment %}
+                        <p class="champ_aide" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% comment %} Message d'erreur si le champ est mal rempli (e-mail invalide, champ vide ...) {% endcomment %}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+
+            {% comment %} Mention d'information juste avant le bouton d'envoie {% endcomment %}
+            <div class="contact_mention">
+                {{ page.privacy_notice|richtext }}
+            </div>
+
+            <button type="submit" class="bouton">{{ page.submit_label }}</button>
+        </form>
+    </article>
+{% endblock content %}

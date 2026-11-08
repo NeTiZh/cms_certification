@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags%}
+
+{% block body_class %}contact-page{% endblock %}
+
+{% block content %}
+    {% comment %} Même page, même titre : seul le formulaire est remplacé par le message de remerciement {% endcomment %}
+    <article class="contact">
+        <h1>{{ page.title }}</h1>
+        {{ page.thank_you_text|richtext }}
+    </article>
+{% endblock %}

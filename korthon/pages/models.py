@@ -1,5 +1,8 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from modelcluster.fields import ParentalKey  # lien page -> champs, édités ensemble (formulaire de contact)
+from wagtail.admin.panels import FieldPanel, InlinePanel  # InlinePanel : liste de champs avec un bouton "Ajouter"
+from wagtail.contrib.forms.models import AbstractForm, AbstractFormField  # page avec formulaire / un champ du formulaire
+from wagtail.contrib.forms.panels import FormSubmissionsPanel  # lien vers les messages reçus, dans l'admin
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
 from wagtail.models import Page
@@ -47,3 +50,42 @@ class MentionsLegalesPage(Page):
 
     class Meta:
         verbose_name = "Mentions légales"
+
+# Page Contact
+# Les champs du formulaire ne sont pas écrits dans le code : ils sont créés dans l'admin
+# (nom, e-mail, sujet, message). Chaque envoi est enregistré dans l'admin, sans e-mail.
+
+
+# Un champ du formulaire (ex. : "E-mail", obligatoire, de type e-mail).
+# AbstractFormField fournit déjà le libellé, le type, "obligatoire", les choix et la valeur par défaut.
+class ChampFormulaire(AbstractFormField):
+    # ParentalKey plutôt que ForeignKey : la page et ses champs sont enregistrés ensemble,
+    # ce qui permet de les modifier en brouillon avant de publier.
+    # related_name="form_fields" est imposé : Wagtail cherche les champs sous ce nom.
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="form_fields")
+
+
+# AbstractForm : page qui affiche un formulaire et enregistre les réponses.
+# AbstractEmailForm enverrait aussi un e-mail, ce que le cahier des charges exclut.
+class ContactPage(AbstractForm):
+    intro = RichTextField(blank=True, help_text="Explication affichée au-dessus du formulaire de contact")
+    privacy_notice = RichTextField(blank=True, help_text="Texte de confidentialité affiché au-dessus du bouton d'envoi du formulaire")
+    submit_label = models.CharField(max_length=50, default="Envoyer", help_text="Texte du bouton d'envoi du formulaire")
+    thank_you_text = RichTextField(blank=True, help_text="Texte affiché après l'envoi du formulaire")
+
+    # Ordre des blocs dans l'admin, de haut en bas
+    content_panels = AbstractForm.content_panels + [
+        FormSubmissionsPanel(),  # nombre de messages reçus, avec un lien pour les lire
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Champs du formulaire"),  # liste des champs avec un bouton "Ajouter"
+        FieldPanel("privacy_notice"),
+        FieldPanel("submit_label"),
+        FieldPanel("thank_you_text"),
+    ]
+
+    max_count = 1  # une seule page Contact
+    parent_page_types = ["home.HomePage"]  # toujours sous l'accueil
+    subpage_types = []  # pas de sous-page
+
+    class Meta:
+        verbose_name = "Contact"
