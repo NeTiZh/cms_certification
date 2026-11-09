@@ -13,11 +13,11 @@
 
         {% comment %} Chaque bouton n'apparaît que si son lien est renseigné : jamais de lien vide {% endcomment %}
         <div class="boutons">
-            {% if page.page_documentation %}
-                <a class="bouton" href="{% pageurl page.page_documentation %}">Voir les commandes</a>
+            {% if page.documentation_page %}
+                <a class="bouton" href="{% pageurl page.documentation_page %}">Voir les commandes</a>
             {% endif %}
-            {% if settings.pages.ReglagesSite.lien_invitation %}
-                <a class="bouton" href="{{ settings.pages.ReglagesSite.lien_invitation }}" target="_blank" rel="noopener">
+            {% if settings.pages.SiteSettings.invite_link %}
+                <a class="bouton" href="{{ settings.pages.SiteSettings.invite_link }}" target="_blank" rel="noopener">
                     Ajouter à mon serveur ↗
                 </a>
             {% endif %}

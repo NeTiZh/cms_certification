@@ -2,16 +2,16 @@
 {% get_settings %}
 
 <footer class="site-footer bandeau">
-    <p>{{ settings.pages.ReglagesSite.copyright }}</p>
-    {% if settings.pages.ReglagesSite.page_mentions_legales %}
-        <a href="{% pageurl settings.pages.ReglagesSite.page_mentions_legales %}">
-            {{ settings.pages.ReglagesSite.page_mentions_legales.title }}
+    <p>{{ settings.pages.SiteSettings.copyright }}</p>
+    {% if settings.pages.SiteSettings.legal_page %}
+        <a href="{% pageurl settings.pages.SiteSettings.legal_page %}">
+            {{ settings.pages.SiteSettings.legal_page.title }}
         </a>
     {% endif %}
 
-    {% if settings.pages.ReglagesSite.lien_support %}
+    {% if settings.pages.SiteSettings.support_link %}
         <p>Le formulaire ne suffit pas ?
-            <a href="{{ settings.pages.ReglagesSite.lien_support}}" target="_blank" rel="noopener noreferrer">
+            <a href="{{ settings.pages.SiteSettings.support_link}}" target="_blank" rel="noopener noreferrer">
                 Discord de support ↗
             </a>
         </p>

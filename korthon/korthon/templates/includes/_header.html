@@ -6,8 +6,8 @@
 {% comment %} Logo : renvoie vers l'accueil. Sans logo défini, on affiche le nom en texte {% endcomment %}
 <header class="site-header bandeau">
     <a class="site-header_logo" href="/">
-        {% if settings.pages.ReglagesSite.logo %}
-        {% image settings.pages.ReglagesSite.logo height-128 alt="Korthon, retour à l'accueil" %}
+        {% if settings.pages.SiteSettings.logo %}
+        {% image settings.pages.SiteSettings.logo height-128 alt="Korthon, retour à l'accueil" %}
         {% else %}
         Korthon
         {% endif %}
@@ -40,8 +40,8 @@
     </nav>
 
     {% comment %} Bouton d'invitation du bot, affiché seulement si le lien est renseigné {% endcomment %}
-    {% if settings.pages.ReglagesSite.lien_invitation %}
-        <a class="site-header_invitation bouton" href="{{ settings.pages.ReglagesSite.lien_invitation }}" target="_blank" rel="noopener">
+    {% if settings.pages.SiteSettings.invite_link %}
+        <a class="site-header_invitation bouton" href="{{ settings.pages.SiteSettings.invite_link }}" target="_blank" rel="noopener">
             Ajouter<span class="texte-long"> à mon serveur</span> ↗
         </a>
     {% endif %}

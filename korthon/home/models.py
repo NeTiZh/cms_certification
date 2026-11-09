@@ -6,10 +6,10 @@ from wagtail.models import Orderable, Page
 
 # Un bloc de l'accueil : un texte d'accroche et une capture du bot.
 # Orderable : Dylan peut changer l'ordre des blocs dans l'admin.
-class BlocAccroche(Orderable):
-    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="blocs_accroche")
-    accroche = models.CharField(max_length=150, help_text="Phrase courte qui donne envie d'ajouter le bot")
-    capture = models.ForeignKey(
+class TaglineBlock(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="tagline_blocks")
+    tagline = models.CharField(max_length=150, help_text="Phrase courte qui donne envie d'ajouter le bot")
+    screenshot = models.ForeignKey(
         "wagtailimages.Image",
         on_delete=models.PROTECT,
         related_name="+",
@@ -17,13 +17,13 @@ class BlocAccroche(Orderable):
     )
 
     panels = [
-        FieldPanel("accroche"),
-        FieldPanel("capture"),
+        FieldPanel("tagline"),
+        FieldPanel("screenshot"),
     ]
 
 
 class HomePage(Page):
-    page_decouvrir = models.ForeignKey(
+    discover_page = models.ForeignKey(
         "wagtailcore.page",
         null=True,
         blank=True,
@@ -33,8 +33,8 @@ class HomePage(Page):
     )
     
     content_panels = Page.content_panels + [
-        InlinePanel("blocs_accroche", min_num=1, label="Blocs d'accroche"),
-        FieldPanel("page_decouvrir"),
+        InlinePanel("tagline_blocks", min_num=1, label="Blocs d'accroche"),
+        FieldPanel("discover_page"),
     ]
     
     max_count = 1  # une seule page Accueil

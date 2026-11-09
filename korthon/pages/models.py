@@ -5,10 +5,10 @@ from wagtail.contrib.forms.models import AbstractForm, AbstractFormField  # page
 from wagtail.contrib.forms.panels import FormSubmissionsPanel  # lien vers les messages reçus, dans l'admin
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
-from wagtail.models import Page
+from wagtail.models import Orderable, Page
 
 @register_setting  # ajoute une entrée "Réglages" dans l'admin, un seul formulaire par site
-class ReglagesSite(BaseSiteSetting):
+class SiteSettings(BaseSiteSetting):
     logo = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -17,10 +17,10 @@ class ReglagesSite(BaseSiteSetting):
         related_name="+",
         help_text="Logo du site affiché dans le header",
     )
-    lien_invitation = models.URLField(blank=True, help_text="Lien d'invitation du bot Discord")  # bouton <<Ajouter à mon serveur>>
-    lien_support = models.URLField(blank=True, help_text="Lien d'invitation du serveur Discord de support")  # lien << Discord de support>>
+    invite_link = models.URLField(blank=True, help_text="Lien d'invitation du bot Discord")  # bouton <<Ajouter à mon serveur>>
+    support_link = models.URLField(blank=True, help_text="Lien d'invitation du serveur Discord de support")  # lien << Discord de support>>
     copyright = models.CharField(max_length=100, default="© 2026 Korthon", help_text="Texte de copyright affiché dans le footer du site")
-    page_mentions_legales = models.ForeignKey(
+    legal_page = models.ForeignKey(
         "wagtailcore.Page",
         null=True,
         blank=True,
@@ -31,13 +31,13 @@ class ReglagesSite(BaseSiteSetting):
 
     panels = [
         FieldPanel("logo"),
-        FieldPanel("lien_invitation"),
-        FieldPanel("lien_support"),
+        FieldPanel("invite_link"),
+        FieldPanel("support_link"),
         FieldPanel("copyright"),
-        FieldPanel("page_mentions_legales"),
+        FieldPanel("legal_page"),
     ]
 # Page mention légales
-class MentionsLegalesPage(Page):
+class LegalNoticePage(Page):
     content = RichTextField(help_text="Editeur, hébergement, données personnelles, cookies, etc.")
 
     content_panels = Page.content_panels + [
@@ -58,7 +58,7 @@ class MentionsLegalesPage(Page):
 
 # Un champ du formulaire (ex. : "E-mail", obligatoire, de type e-mail).
 # AbstractFormField fournit déjà le libellé, le type, "obligatoire", les choix et la valeur par défaut.
-class ChampFormulaire(AbstractFormField):
+class FormField(AbstractFormField):
     # ParentalKey plutôt que ForeignKey : la page et ses champs sont enregistrés ensemble,
     # ce qui permet de les modifier en brouillon avant de publier.
     # related_name="form_fields" est imposé : Wagtail cherche les champs sous ce nom.
@@ -90,9 +90,9 @@ class ContactPage(AbstractForm):
     class Meta:
         verbose_name = "Contact"
 
-class DecouvrirPage(Page):
+class DiscoverPage(Page):
     intro = RichTextField(blank=True, help_text="Présentation du bot, quelques phrases")
-    page_documentation = models.ForeignKey(
+    documentation_page = models.ForeignKey(
         "wagtailcore.page",
         null=True,
         blank=True,
@@ -103,7 +103,7 @@ class DecouvrirPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
-        FieldPanel("page_documentation"),
+        FieldPanel("documentation_page"),
     ]
 
     max_count = 1  # une seule page Découvrir
@@ -112,3 +112,53 @@ class DecouvrirPage(Page):
 
     class Meta:
         verbose_name = "Découvrir"
+
+
+# Une commande du bot, rattachée à sa catégorie.
+# Orderable : on choisit l'ordre d'affichage des commandes dans l'admin.
+class Command(Orderable):
+    page = ParentalKey("CategoryPage", on_delete=models.CASCADE, related_name="commands")
+    name = models.CharField(max_length=50, help_text="Nom de la commande")
+    description = models.TextField(help_text="description de la commande")
+    usage = models.CharField(max_length=100, help_text="Usage de la commande ex: /ban <member> <reason>")
+    permission = models.CharField(max_length=50, help_text="ex: Administrateur, etc..", blank=True)
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("description"),
+        FieldPanel("usage"),
+        FieldPanel("permission"),
+    ]
+
+class DocumentationPage(Page):
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["pages.CategoryPage"]
+
+    class Meta:
+        verbose_name = "Documentation"
+
+# Une catégorie de commandes (Général, Modération, etc..)
+class CategoryPage(Page):
+    intro = RichTextField(blank=True, help_text="Présentation de la catégorie, affichée aussi sur la page Découvrir")
+    screenshot = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Capture affichée dans le bloc de la catégorie sur la page Découvrir",
+    )
+    show_on_discover = models.BooleanField(default=False, help_text="Afficher cette catégorie sur la page Découvrir")
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        FieldPanel("screenshot"),
+        FieldPanel("show_on_discover"),
+        InlinePanel("commands", label="Commandes"),
+    ]
+
+    parent_page_types = ["pages.DocumentationPage"] # toujours sous la Documentation
+    subpage_types = [] # pas de sous-page
+
+    class Meta:
+        verbose_name = "Catégorie"
