@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailsettings_tags %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'pages/css/decouvrir.css' %}">
+{% endblock %}
 
 {% block body_class %}page-decouvrir{% endblock %}
 
@@ -10,6 +14,17 @@
         {{ page.intro|richtext }}
 
         {% comment %} Partie 2 : blocs des catégories cochées dans l'admin {% endcomment %}
+        <div class="categories-blocs">
+        {% for category in categories %}
+            <a class="categorie-bloc" href="{% pageurl category %}">
+                {% if category.screenshot %}
+                    {% image category.screenshot width-600 %}
+                {% endif %}
+                <h2>{{ category.title }}</h2>
+                {{ category.intro|richtext }}
+            </a>
+        {% endfor %}
+        </div>
 
         {% comment %} Chaque bouton n'apparaît que si son lien est renseigné : jamais de lien vide {% endcomment %}
         <div class="boutons">

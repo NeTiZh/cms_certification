@@ -106,6 +106,12 @@ class DiscoverPage(Page):
         FieldPanel("documentation_page"),
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        # Les catégories publiées dont la case « Afficher sur la page Découvrir » est cochée
+        context["categories"] = CategoryPage.objects.live().filter(show_on_discover=True)
+        return context
+
     max_count = 1  # une seule page Découvrir
     parent_page_types = ["home.HomePage"]  # toujours sous l'accueil
     subpage_types = []  # pas de sous-page

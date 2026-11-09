@@ -1,0 +1,134 @@
+/* ========== Documentation : liste des catégories ========== */
+
+.documentation {
+    max-width: 40rem;
+    margin: 0 auto;               /* centre la liste dans main */
+}
+
+.documentation h1 {
+    text-align: center;
+}
+
+/* La liste devient une colonne de grands blocs, sans puces */
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace);
+    margin: calc(var(--espace) * 2) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Le lien prend tout le bloc : on peut cliquer n'importe où dedans */
+.categorie {
+    display: block;
+    padding: calc(var(--espace) * 1.5);
+    border: 1px solid var(--couleur-bordure);
+    border-radius: var(--arrondi);
+    background: var(--couleur-champ);
+    color: var(--couleur-texte);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+.categorie:hover {
+    border-color: var(--couleur-lien);
+    color: var(--couleur-lien);
+}
+
+/* ========== Page d'une catégorie ========== */
+
+/* Menu des catégories à gauche, commandes à droite */
+.categorie-page {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--espace) * 2);
+}
+
+.categorie-menu {
+    flex: 0 0 12rem;              /* largeur fixe, ne grandit pas */
+}
+
+.categorie-menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--espace) / 4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.categorie-menu a {
+    display: block;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--arrondi);
+    color: var(--couleur-texte);
+    text-decoration: none;
+}
+
+.categorie-menu a:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Catégorie en cours : comme la page active du header */
+.categorie-menu a.actif {
+    background: var(--couleur-bandeau);
+    color: var(--couleur-accent);
+    font-weight: 700;
+}
+
+.commandes {
+    flex: 1;                      /* les commandes prennent la place restante */
+    min-width: 0;                 /* permet aux longs usages de passer à la ligne */
+}
+
+.commandes h1 {
+    margin-top: 0;
+}
+
+/* Une commande : une carte */
+.commande {
+    margin-top: var(--espace);
+    padding: var(--espace) calc(var(--espace) * 1.5);
+    border: 1px solid var(--couleur-bordure);
+    border-radius: var(--arrondi);
+    background: var(--couleur-champ);
+}
+
+.commande h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.commande p {
+    margin: 0.35rem 0;
+}
+
+/* Usage : les longues commandes peuvent passer à la ligne */
+.commande code {
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    background: var(--couleur-fond);
+    overflow-wrap: anywhere;
+}
+
+/* ========== Mobile ========== */
+@media (max-width: 700px) {
+    /* Le menu passe au-dessus des commandes */
+    .categorie-page {
+        flex-direction: column;
+    }
+
+    .categorie-menu {
+        flex-basis: auto;
+        width: 100%;
+    }
+
+    /* Menu des catégories en barre horizontale (cahier des charges) */
+    .categorie-menu ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

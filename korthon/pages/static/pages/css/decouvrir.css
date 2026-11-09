@@ -1,0 +1,51 @@
+/* ========== Découvrir ========== */
+
+.decouvrir h1 {
+    text-align: center;
+}
+
+/* Les blocs des catégories : 2 colonnes sur ordinateur */
+.categories-blocs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: calc(var(--espace) * 1.5);
+    margin-top: calc(var(--espace) * 2);
+}
+
+/* Un bloc : le lien entier est cliquable */
+.categorie-bloc {
+    display: block;
+    padding: var(--espace);
+    border: 1px solid var(--couleur-bordure);
+    border-radius: var(--arrondi);
+    background: var(--couleur-champ);
+    color: var(--couleur-texte);  /* le texte du bloc ne prend pas la couleur des liens */
+    text-decoration: none;
+}
+
+.categorie-bloc:hover {
+    border-color: var(--couleur-lien);
+}
+
+.categorie-bloc img {
+    display: block;
+    width: 100%;
+    border-radius: var(--arrondi);
+}
+
+.categorie-bloc h2 {
+    margin: var(--espace) 0 0.5rem;
+    color: var(--couleur-lien);
+}
+
+.categorie-bloc p {
+    margin: 0;
+}
+
+/* ========== Mobile ========== */
+@media (max-width: 700px) {
+    /* Une seule colonne : les blocs s'empilent */
+    .categories-blocs {
+        grid-template-columns: 1fr;
+    }
+}

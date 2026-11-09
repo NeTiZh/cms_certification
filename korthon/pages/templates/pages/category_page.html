@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'pages/css/documentation.css' %}">
+{% endblock %}
+
+{% block body_class %}page-categorie{% endblock %}
+
+{% block content %}
+    <div class="categorie-page">
+
+        {% comment %} Menu des catégories : les pages sœurs, la catégorie en cours est marquée {% endcomment %}
+        <nav class="categorie-menu" aria-label="Catégories">
+            <ul>
+                {% for category in page.get_parent.get_children.live %}
+                    <li>
+                        <a href="{% pageurl category %}"{% if category.pk == page.pk %} class="actif" aria-current="page"{% endif %}>
+                            {{ category.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        {% comment %} Les commandes de la catégorie, dans l'ordre choisi dans l'admin {% endcomment %}
+        <article class="commandes">
+            <h1>{{ page.title }}</h1>
+
+            {% for command in page.commands.all %}
+                <section class="commande">
+                    <h2>{{ command.name }}</h2>
+                    <p>{{ command.description }}</p>
+                    <p><strong>Usage :</strong> <code>{{ command.usage }}</code></p>
+                    {% if command.permission %}
+                        <p><strong>Permission :</strong> {{ command.permission }}</p>
+                    {% endif %}
+                </section>
+            {% endfor %}
+        </article>
+
+    </div>
+{% endblock %}
