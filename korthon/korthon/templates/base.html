@@ -34,13 +34,13 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        {% include "includes/header.html" %}
+        {% include "includes/_header.html" %}
         
         <main>
         {% block content %}{% endblock %}
         </main>
 
-        {% include "includes/footer.html" %}
+        {% include "includes/_footer.html" %}
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/korthon.js' %}"></script>
 

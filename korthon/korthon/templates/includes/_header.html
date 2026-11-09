@@ -13,12 +13,16 @@
         {% endif %}
     </a>
 
+    {% comment %} Bouton du menu, visible seulement sur téléphone {% endcomment %}
+    <button class="site-header_menu bouton" type="button" aria-expanded="false" aria-controls="menu-principal">
+        Menu
+    </button>
     {% comment %} Menu principal, construit à partir de l'arbre des pages {% endcomment %}
-    <nav class="site-header_nav" aria-label="Menu principal">
+    <nav id="menu-principal" class="site-header_nav" aria-label="Menu principal">
         <ul>
             {% comment %} L'accueil n'est pas un enfant de lui-même : on l'ajoute séparément {% endcomment %}
             <li>
-                <a href="{% pageurl site.root_page %}"{% if page.pk == site.root.pk %} class="actif" aria-current="page"{% endif %}>
+                <a href="{% pageurl site.root_page %}"{% if page.pk == site.root_page.pk %} class="actif" aria-current="page"{% endif %}>
                     {{ site.root_page.title}}
                 </a>
             </li>
@@ -38,7 +42,7 @@
     {% comment %} Bouton d'invitation du bot, affiché seulement si le lien est renseigné {% endcomment %}
     {% if settings.pages.ReglagesSite.lien_invitation %}
         <a class="site-header_invitation bouton" href="{{ settings.pages.ReglagesSite.lien_invitation }}" target="_blank" rel="noopener">
-            Ajouter à mon serveur ↗
+            Ajouter<span class="texte-long"> à mon serveur</span> ↗
         </a>
     {% endif %}
 </header>

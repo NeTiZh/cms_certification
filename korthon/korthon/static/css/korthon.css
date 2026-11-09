@@ -56,7 +56,8 @@ a {
 
 /* Focus visible au clavier (accessibilité) */
 a:focus-visible,
-button:focus-visibleinput:focus-visible,
+button:focus-visible,
+input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
     outline: 3px solid var(--couleur-lien);
@@ -142,6 +143,11 @@ textarea:focus-visible {
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 6px;
+}
+
+/* Bouton du menu : caché sur ordinateur */
+.site-header_menu {
+    display: none;
 }
 
 /* ========== Footer ========== */
@@ -237,3 +243,51 @@ textarea:focus-visible {
 .contact button {
     align-self: flex-start;    
 }                                                                                                         
+
+/* ========== Mobile ========== */
+/* C'est un if du CSS : « si l'écran respecte cette condition, alors applique ces règles ». */
+@media (max-width: 700px){
+    .site-header{ 
+        flex-wrap: wrap;
+    }
+
+    .site-header_menu{
+        display: block;
+        order: 1;
+    }
+
+    /* Flèche du bouton : ▾ fermé, ▴ ouvert */
+    .site-header_menu::after {
+    content: " ▾";
+    }
+    .site-header_menu[aria-expanded="true"]::after {
+    content: " ▴";
+    }
+
+    .site-header_nav{
+        display: none;
+        width: 100%;
+        order: 2;
+    }
+
+    .site-header_nav.ouvert{
+        display: block;
+    }
+
+    .site-header_nav ul{
+        flex-direction: column;
+    }
+
+    .site-header_invitation{
+        margin-left: auto;
+    }
+
+    .texte-long{ 
+        display: none;
+    }
+    
+    .site-footer{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
