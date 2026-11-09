@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailsettings_tags %}
+
+{% block body_class %}page-decouvrir{% endblock %}
+
+{% block content %}
+    {% get_settings %}
+    <article class="decouvrir">
+        <h1>{{ page.title }}</h1>
+        {{ page.intro|richtext }}
+
+        {% comment %} Partie 2 : blocs des catégories cochées dans l'admin {% endcomment %}
+
+        {% comment %} Chaque bouton n'apparaît que si son lien est renseigné : jamais de lien vide {% endcomment %}
+        <div class="boutons">
+            {% if page.page_documentation %}
+                <a class="bouton" href="{% pageurl page.page_documentation %}">Voir les commandes</a>
+            {% endif %}
+            {% if settings.pages.ReglagesSite.lien_invitation %}
+                <a class="bouton" href="{{ settings.pages.ReglagesSite.lien_invitation }}" target="_blank" rel="noopener">
+                    Ajouter à mon serveur ↗
+                </a>
+            {% endif %}
+        </div>
+    </article>
+{% endblock %}

@@ -244,6 +244,16 @@ textarea:focus-visible {
     align-self: flex-start;    
 }                                                                                                         
 
+/* ========== Rangée de boutons (Découvrir, Accueil) ========== */
+
+.boutons {
+    display: flex;
+    flex-wrap: wrap;              /* sur téléphone, les boutons passent l'un sous l'autre */
+    justify-content: center;
+    gap: var(--espace);
+    margin-top: calc(var(--espace) * 2);
+}
+
 /* ========== Mobile ========== */
 /* C'est un if du CSS : « si l'écran respecte cette condition, alors applique ces règles ». */
 @media (max-width: 700px){

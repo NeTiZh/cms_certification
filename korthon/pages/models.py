@@ -89,3 +89,26 @@ class ContactPage(AbstractForm):
 
     class Meta:
         verbose_name = "Contact"
+
+class DecouvrirPage(Page):
+    intro = RichTextField(blank=True, help_text="Présentation du bot, quelques phrases")
+    page_documentation = models.ForeignKey(
+        "wagtailcore.page",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Page vers laquelle mène le bouton « Voir les commandes »",
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        FieldPanel("page_documentation"),
+    ]
+
+    max_count = 1  # une seule page Découvrir
+    parent_page_types = ["home.HomePage"]  # toujours sous l'accueil
+    subpage_types = []  # pas de sous-page
+
+    class Meta:
+        verbose_name = "Découvrir"
