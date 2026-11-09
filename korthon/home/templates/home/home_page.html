@@ -1,14 +1,35 @@
 {% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/accueil.css' %}">
+{% endblock %}
+
+{% block body_class %}page-accueil{% endblock %}
+
 {% block content %}
-<h1>{{ page.title }}</h1>
-<p>
-    Bonjour, je m'appelle [votre prénom]. Je suis en formation "Découverte
-    Métier IA" chez Simplon Bordeaux, où j'apprends les bases du
-    développement web : HTML, CSS, Python, et des outils comme Git et
-    Wagtail.
-</p>
-<p>
-    Je me suis lancé·e dans cette formation parce que [votre raison
-    personnelle].
-</p>
-{% endblock content %}
+    {% get_settings %}
+    <article class="accueil">
+        <h1>{{ page.title }}</h1>
+
+        {% comment %} Les 3 blocs d'accroche, dans l'ordre choisi dans l'admin {% endcomment %}
+        {% for bloc in page.blocs_accroche.all %}
+            <section class="accroche">
+                <p class="accroche_texte">{{ bloc.accroche }}</p>
+                {% image bloc.capture width-600 class="accroche_capture" %}
+            </section>
+        {% endfor %}
+
+        {% comment %} Chaque bouton n'apparaît que si son lien est renseigné {% endcomment %}
+        <div class="boutons">
+            {% if page.page_decouvrir %}
+                <a class="bouton" href="{% pageurl page.page_decouvrir %}">Découvrir Korthon</a>
+            {% endif %}
+            {% if settings.pages.ReglagesSite.lien_invitation %}
+                <a class="bouton" href="{{ settings.pages.ReglagesSite.lien_invitation }}" target="_blank" rel="noopener">
+                    Ajouter à mon serveur ↗
+                </a>
+            {% endif %}
+        </div>
+    </article>
+{% endblock %}

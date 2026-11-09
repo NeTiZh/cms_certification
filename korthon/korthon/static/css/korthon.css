@@ -110,6 +110,8 @@ textarea:focus-visible {
 
 .site-header_logo img {
     display: block;
+    height: 64px;     /* taille affichée, l'image fait 128px pour rester nette */
+    width: auto;      /* la largeur suit, sans déformer le logo */
 }
 
 /* Logo et liens du menu : couleur du bandeau, sans soulignement */
@@ -164,85 +166,7 @@ textarea:focus-visible {
 
 .site-footer a {
     color: var(--couleur-accent);
-}
-
-/* ========== Page Contact ========== */
-
-/* Un formulaire trop large est pénible à lire : on limite sa largeur */
-.contact {
-    max-width: 40rem;
-}
-
-/* Les champs empilés les uns sous les autres, espacés régulièrement */
-.contact form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-top: 1.5rem;
-}
-
-/* Un champ : libellé, zone de saisie, aide et erreur empilés */
-.champ {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.champ label {
-    font-weight: 600;
-}
-
-.champ input,
-.champ select,
-.champ textarea {
-    width: 100%;
-    padding: 0.6rem 0.75rem;
-    font: inherit;                 /* sinon le navigateur met une police plus petite */
-    color: var(--couleur-texte);
-    background: var(--couleur-champ);
-    border: 1px solid var(--couleur-bordure);
-    border-radius: var(--arrondi);
-}
-
-.champ textarea {
-    min-height: 10rem;
-    resize: vertical;              /* agrandissable en hauteur seulement */
-}
-
-/* Champ mal rempli : Django ajoute aria-invalid="true", on colore le bord */
-.champ [aria-invalid="true"] {
-    border-color: var(--couleur-erreur);
-}
-
-.champ_aide {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--couleur-texte-doux);
-}
-
-/* Liste d'erreurs générée par Django : sans puces, en rouge */
-.errorlist {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--couleur-erreur);
-}
-
-.contact_mention {
-    font-size: 0.85rem;
-    color: var(--couleur-texte-doux);
-}
-
-.contact_mention p {
-    margin: 0;
-}
-
-/* Dans une colonne flex, le bouton s'étirerait sur toute la largeur : on le garde à sa taille */
-.contact button {
-    align-self: flex-start;    
-}                                                                                                         
+}                                                                                                        
 
 /* ========== Rangée de boutons (Découvrir, Accueil) ========== */
 

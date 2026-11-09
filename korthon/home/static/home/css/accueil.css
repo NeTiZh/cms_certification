@@ -1,0 +1,42 @@
+/* ========== Accueil ========== */
+
+.accueil h1 {
+    text-align: center;
+}
+
+/* Un bloc : texte et capture côte à côte */
+.accroche {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--espace) * 2);
+    margin-top: calc(var(--espace) * 2);
+}
+
+.accroche_texte {
+    flex: 1;                      /* le texte prend la place restante */
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.accroche_capture {
+    width: 45%;
+    border-radius: var(--arrondi);
+}
+
+/* Un bloc sur deux : capture à gauche, texte à droite */
+.accroche:nth-of-type(even) {
+    flex-direction: row-reverse;
+}
+
+/* ========== Mobile ========== */
+@media (max-width: 700px) {
+    /* Capture au-dessus, texte en dessous */
+    .accroche,
+    .accroche:nth-of-type(even) {
+        flex-direction: column-reverse;
+    }
+
+    .accroche_capture {
+        width: 100%;
+    }
+}
