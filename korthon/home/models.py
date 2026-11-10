@@ -13,7 +13,7 @@ class TaglineBlock(Orderable):
         "wagtailimages.Image",
         on_delete=models.PROTECT,
         related_name="+",
-        help_text="Capture du bot sur Discord",
+        help_text="Illustration affichée à côté de l'accroche",
     )
 
     panels = [
