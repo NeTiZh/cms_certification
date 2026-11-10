@@ -10,6 +10,7 @@
 {% block content %}
     <article class="documentation">
         <h1>{{ page.title }}</h1>
+        {{ page.intro|richtext }}
 
         {% comment %} Une catégorie par page enfant publiée, dans l'ordre de l'arbre {% endcomment %}
         <ul class="categories">

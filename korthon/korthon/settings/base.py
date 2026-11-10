@@ -186,3 +186,6 @@ WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'tx
 
 # Maximum upload size for documents in bytes.
 WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
+
+# Formats d'image acceptés dans l'admin (svg : logo léger et net à toutes les tailles)
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]

@@ -91,7 +91,7 @@ class ContactPage(AbstractForm):
         verbose_name = "Contact"
 
 class DiscoverPage(Page):
-    intro = RichTextField(blank=True, help_text="Présentation du bot, quelques phrases")
+    intro = RichTextField(blank=True, help_text="Présentation du bot, en quelques phrases")
     documentation_page = models.ForeignKey(
         "wagtailcore.page",
         null=True,
@@ -137,8 +137,13 @@ class Command(Orderable):
     ]
 
 class DocumentationPage(Page):
+    intro = RichTextField(blank=True, help_text="Présentation des commandes, en quelques phrases")
     parent_page_types = ["home.HomePage"]
     subpage_types = ["pages.CategoryPage"]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+    ]
 
     class Meta:
         verbose_name = "Documentation"

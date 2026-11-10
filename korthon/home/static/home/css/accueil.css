@@ -7,25 +7,40 @@
 /* Un bloc : texte et capture côte à côte */
 .accroche {
     display: flex;
-    align-items: center;
-    gap: calc(var(--espace) * 2);
-    margin-top: calc(var(--espace) * 2);
+    align-items: stretch;         /* la carte de texte prend la hauteur de l'image */
+    gap: calc(var(--espace) * 1.5);
+    margin-top: calc(var(--espace) * 1.5);
 }
 
+/* Carte blanche, trait or côté extérieur */
 .accroche_texte {
     flex: 1;                      /* le texte prend la place restante */
-    font-size: 1.25rem;
+    display: flex;
+    align-items: center;          /* texte centré en hauteur dans la carte */
+    margin: 0;
+    padding: calc(var(--espace) * 1.5) calc(var(--espace) * 2);
+    font-size: 1.35rem;
     font-weight: 600;
+    background: var(--couleur-champ);
+    border: 1px solid var(--couleur-bordure-carte);
+    border-left: 5px solid var(--couleur-accent);
+    border-radius: var(--arrondi-carte);
 }
 
 .accroche_capture {
-    width: 45%;
-    border-radius: var(--arrondi);
+    width: 40%;
+    border-radius: var(--arrondi-carte);
 }
 
 /* Un bloc sur deux : capture à gauche, texte à droite */
 .accroche:nth-of-type(even) {
     flex-direction: row-reverse;
+}
+
+/* Le trait or passe à droite, toujours côté extérieur */
+.accroche:nth-of-type(even) .accroche_texte {
+    border-left: 1px solid var(--couleur-bordure-carte);
+    border-right: 5px solid var(--couleur-accent);
 }
 
 /* ========== Mobile ========== */
@@ -34,6 +49,12 @@
     .accroche,
     .accroche:nth-of-type(even) {
         flex-direction: column-reverse;
+        gap: var(--espace);
+    }
+
+    .accroche_texte {
+        padding: var(--espace) calc(var(--espace) * 1.25);
+        font-size: 1.15rem;
     }
 
     .accroche_capture {

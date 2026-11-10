@@ -76,3 +76,39 @@
 .contact button {
     align-self: flex-start;    
 } 
+/* ========== Ordinateur ========== */
+@media (min-width: 900px) {
+    /* Page plus large : le formulaire tient sans faire défiler */
+    .contact {
+        max-width: 60rem;
+    }
+
+    /* Deux colonnes : nom, e-mail et sujet à gauche, message à droite */
+    .contact form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2rem;
+    }
+
+    /* Le champ qui contient le message : colonne de droite, sur 3 lignes */
+    .champ:has(textarea) {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+    }
+
+    /* La zone de message remplit toute la hauteur du champ */
+    .champ textarea {
+        flex: 1;
+    }
+
+    /* Mention et bouton sous les deux colonnes, sur toute la largeur */
+    .contact_mention,
+    .contact button {
+        grid-column: 1 / -1;
+    }
+
+    /* Dans une grille, le bouton s'étirerait en largeur : on le garde à sa taille */
+    .contact button {
+        justify-self: start;
+    }
+}

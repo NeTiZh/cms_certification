@@ -1,0 +1,48 @@
+/* ========== Mentions légales ========== */
+
+/* L'article entier devient une carte, comme sur les autres pages.
+   Colonne étroite : un texte long se lit mieux */
+.mentions-legales {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: calc(var(--espace) * 2);
+    border: 1px solid var(--couleur-bordure-carte);
+    border-left: 5px solid var(--couleur-accent);
+    border-radius: var(--arrondi-carte);
+    background: var(--couleur-champ);
+}
+
+.mentions-legales h1 {
+    margin-top: 0;
+    text-align: center;
+}
+
+/* Chaque section : un filet beige au-dessus, un losange or devant le titre */
+.mentions-legales h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: calc(var(--espace) * 1.5) 0 0.5rem;
+    padding-top: calc(var(--espace) * 1.5);
+    border-top: 1px solid var(--couleur-bordure-carte);
+    font-size: 1.2rem;
+    color: var(--couleur-lien);
+}
+
+.mentions-legales h2::before {
+    content: "";                  /* obligatoire pour que ::before s'affiche */
+    width: 0.55rem;
+    height: 0.55rem;
+    background: var(--couleur-accent);
+    transform: rotate(45deg);     /* le carré devient un losange */
+}
+
+/* Le premier titre de section, juste après le h1 : pas de filet */
+.mentions-legales h1 + h2 {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.mentions-legales p {
+    margin: 0 0 0.75rem;
+}

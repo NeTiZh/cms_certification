@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="480" height="240">
+  <title>Modération</title>
+  <rect width="240" height="120" rx="12" fill="#f5ecd7"/>
+  <circle cx="120" cy="60" r="54" fill="#efe0bd"/>
+  <!-- étincelles -->
+  <path d="M26 30 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3 Z" fill="#d4a43a"/>
+  <path d="M212 96 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 Z" fill="#d4a43a"/>
+  <!-- bouclier -->
+  <path d="M72 18 L102 29 V55 C102 77 89 90 72 98 C55 90 42 77 42 55 V29 Z" fill="#2b1d12"/>
+  <path d="M72 26 L95 34.5 V55 C95 72 85 83 72 90 Z" fill="#d4a43a" opacity=".3"/>
+  <path d="M58 58 L68 68 L88 46" fill="none" stroke="#d4a43a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- casier -->
+  <rect x="116" y="26" width="96" height="68" rx="8" fill="#fff" stroke="#e4d6b8" stroke-width="1.5"/>
+  <rect x="116" y="26" width="96" height="16" rx="8" fill="#2b1d12"/>
+  <rect x="116" y="34" width="96" height="8" fill="#2b1d12"/>
+  <rect x="126" y="31" width="44" height="6" rx="3" fill="#f5ecd7"/>
+  <path d="M130 52 l5 9 h-10 Z" fill="#d4a43a"/>
+  <rect x="142" y="53" width="54" height="6" rx="3" fill="#2b1d12" opacity=".75"/>
+  <circle cx="130" cy="69" r="4.5" fill="#8a5a14"/>
+  <rect x="142" y="66" width="42" height="6" rx="3" fill="#2b1d12" opacity=".5"/>
+  <circle cx="130" cy="83" r="4.5" fill="#2b1d12"/>
+  <rect x="142" y="80" width="48" height="6" rx="3" fill="#2b1d12" opacity=".35"/>
+</svg>

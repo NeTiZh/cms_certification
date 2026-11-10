@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'pages/css/mentions.css' %}">
+{% endblock %}
 
 {% block body_class %}page-mentions-legales{% endblock %}
 

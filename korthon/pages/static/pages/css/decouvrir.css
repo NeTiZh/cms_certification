@@ -16,21 +16,22 @@
 .categorie-bloc {
     display: block;
     padding: var(--espace);
-    border: 1px solid var(--couleur-bordure);
-    border-radius: var(--arrondi);
+    border: 1px solid var(--couleur-bordure-carte);
+    border-top: 5px solid var(--couleur-accent);  /* trait or en haut, comme une colonne */
+    border-radius: var(--arrondi-carte);
     background: var(--couleur-champ);
     color: var(--couleur-texte);  /* le texte du bloc ne prend pas la couleur des liens */
     text-decoration: none;
 }
 
 .categorie-bloc:hover {
-    border-color: var(--couleur-lien);
+    border-color: var(--couleur-accent);
 }
 
 .categorie-bloc img {
     display: block;
     width: 100%;
-    border-radius: var(--arrondi);
+    border-radius: 8px;           /* un peu moins arrondie que la carte qui l'entoure */
 }
 
 .categorie-bloc h2 {

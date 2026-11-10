@@ -14,6 +14,8 @@
     --couleur-bordure: #8a7a66;       /* bord des champs du formulaire */
     --couleur-champ: #ffffff;         /* fond des champs */
     --couleur-erreur: #b42318;        /* messages d'erreur */
+    --couleur-bordure-carte: #e4d6b8; /* bord beige clair des cartes */
+    --arrondi-carte: 12px;            /* coins des cartes */
 }
 
 /* ========== Base ========== */

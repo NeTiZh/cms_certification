@@ -23,8 +23,9 @@
 .categorie {
     display: block;
     padding: calc(var(--espace) * 1.5);
-    border: 1px solid var(--couleur-bordure);
-    border-radius: var(--arrondi);
+    border: 1px solid var(--couleur-bordure-carte);
+    border-left: 5px solid var(--couleur-accent);  /* trait or, comme sur l'accueil */
+    border-radius: var(--arrondi-carte);
     background: var(--couleur-champ);
     color: var(--couleur-texte);
     font-size: 1.25rem;
@@ -34,7 +35,7 @@
 }
 
 .categorie:hover {
-    border-color: var(--couleur-lien);
+    border-color: var(--couleur-accent);
     color: var(--couleur-lien);
 }
 
@@ -92,8 +93,9 @@
 .commande {
     margin-top: var(--espace);
     padding: var(--espace) calc(var(--espace) * 1.5);
-    border: 1px solid var(--couleur-bordure);
-    border-radius: var(--arrondi);
+    border: 1px solid var(--couleur-bordure-carte);
+    border-left: 5px solid var(--couleur-accent);  /* trait or, comme sur l'accueil */
+    border-radius: var(--arrondi-carte);
     background: var(--couleur-champ);
 }
 
