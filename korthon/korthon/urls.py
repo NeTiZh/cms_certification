@@ -1,20 +1,63 @@
 from django.conf import settings
+# MODIF : ajout de "messages" pour afficher le message d'erreur rouge dans l'admin
+from django.contrib import admin, messages
+# MODIF : "redirect" sert à renvoyer la personne vers la liste des envois
+from django.shortcuts import redirect
 from django.urls import include, path
-from django.contrib import admin
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
-from wagtail.contrib.sitemaps.views import sitemap #import de l'outil pour sitemap
+from wagtail.contrib.sitemaps.views import sitemap  # import de l'outil pour sitemap
+# MODIF : on importe la vue de Wagtail qui gère la suppression des envois,
+# pour pouvoir la copier et lui ajouter notre règle
+from wagtail.contrib.forms.views import DeleteSubmissionsView
 
 from search import views as search_views
 
+
+# MODIF : toute cette classe est nouvelle.
+# Elle reprend la vue de suppression de Wagtail et ajoute une vérification avant.
+class RestrictedDeleteSubmissionsView(DeleteSubmissionsView):
+    """Seuls les superusers et le groupe 'Superadmin'
+    peuvent supprimer des envois de formulaire"""
+
+    # dispatch() est appelée à chaque fois que quelqu'un ouvre cette page
+    def dispatch(self, request, *args, **kwargs):
+        # On regarde si la personne est superuser OU dans le groupe autorisé.
+        # Le nom du groupe doit être identique à celui créé dans Wagtail.
+        autorise = request.user.is_superuser or request.user.groups.filter(
+            name="Superadmin"
+        ).exists()
+
+        # Si elle n'a pas le droit : message d'erreur + retour à la liste des envois,
+        # et rien n'est supprimé
+        if not autorise:
+            messages.error(
+                request,
+                # Tu peux changer ce texte comme tu veux
+                "Vous n'avez pas le droit de supprimer ces messages.",
+            )
+            return redirect("wagtailforms:list_submissions", page_id=kwargs["page_id"])
+
+        # Si elle a le droit : on laisse Wagtail faire la suppression normalement
+        return super().dispatch(request, *args, **kwargs)
+
+
 urlpatterns = [
     path("django-admin/", admin.site.urls),
+    # MODIF : nouvelle ligne. Elle intercepte l'adresse de suppression des envois
+    # et utilise notre vue à la place de celle de Wagtail.
+    # Elle doit être AVANT "admin/", sinon Wagtail passe en premier
+    # et notre règle ne s'applique jamais.
+    path(
+        "admin/forms/submissions/<int:page_id>/delete/",
+        RestrictedDeleteSubmissionsView.as_view(),
+    ),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
-    path("sitemap.xml", sitemap) #déclaration du path sitemap
+    path("sitemap.xml", sitemap),  # déclaration du path sitemap
 ]
 
 
