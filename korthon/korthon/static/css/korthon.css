@@ -66,6 +66,33 @@ textarea:focus-visible {
     outline-offset: 2px;
 }
 
+/* Texte caché à l'écran mais lu par les lecteurs d'écran (accessibilité) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* Lien « Aller au contenu » : caché hors de l'écran, il apparaît au premier appui sur Tab */
+.evitement {
+    position: absolute;
+    left: var(--espace);
+    top: -4rem;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    border-radius: var(--arrondi);
+    background: var(--couleur-accent);
+    color: var(--couleur-texte);
+    font-weight: 700;
+}
+
+.evitement:focus {
+    top: var(--espace);
+}
+
 /* ========== Classes réutilisables ========== */
 
 /* Bandeau sombre : commun au header et au footer */
@@ -218,8 +245,15 @@ textarea:focus-visible {
         margin-left: auto;
     }
 
-    .texte-long{ 
-        display: none;
+    /* « à mon serveur » est caché à l'écran mais reste lu par les lecteurs d'écran
+       (display: none le cacherait aussi pour eux) */
+    .texte-long {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
     }
     
     .site-footer{

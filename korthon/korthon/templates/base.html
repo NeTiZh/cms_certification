@@ -41,11 +41,13 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+        {# Lien d'évitement : au clavier, saute directement au contenu sans retraverser le menu #}
+        <a class="evitement" href="#contenu">Aller au contenu</a>
         {% wagtailuserbar %}
 
         {% include "includes/_header.html" %}
-        
-        <main>
+
+        <main id="contenu">
         {% block content %}{% endblock %}
         </main>
 

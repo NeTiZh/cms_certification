@@ -9,16 +9,21 @@ from wagtail.models import Orderable, Page
 class TaglineBlock(Orderable):
     page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="tagline_blocks")
     tagline = models.CharField(max_length=150, help_text="Phrase courte qui donne envie d'ajouter le bot")
-    screenshot = models.ForeignKey(
+    image = models.ForeignKey(
         "wagtailimages.Image",
         on_delete=models.PROTECT,
         related_name="+",
         help_text="Illustration affichée à côté de l'accroche",
     )
+    image_alt = models.CharField(
+        max_length=255, blank=True,
+        help_text="Décrit ce que montre l'image, pour les lecteurs d'écran",
+    )
 
     panels = [
         FieldPanel("tagline"),
-        FieldPanel("screenshot"),
+        FieldPanel("image"),
+        FieldPanel("image_alt"),
     ]
 
 

@@ -1,6 +1,8 @@
 from django.conf import settings
 # MODIF : ajout de "messages" pour afficher le message d'erreur rouge dans l'admin
 from django.contrib import admin, messages
+# MODIF : HttpResponse sert à renvoyer le texte du robots.txt
+from django.http import HttpResponse
 # MODIF : "redirect" sert à renvoyer la personne vers la liste des envois
 from django.shortcuts import redirect
 from django.urls import include, path
@@ -44,6 +46,21 @@ class RestrictedDeleteSubmissionsView(DeleteSubmissionsView):
         return super().dispatch(request, *args, **kwargs)
 
 
+# MODIF : nouvelle fonction pour le SEO.
+# Les robots des moteurs de recherche lisent /robots.txt avant d'explorer le site :
+# il leur dit ce qu'ils peuvent explorer et où trouver le sitemap.
+def robots_txt(request):
+    content = (
+        "User-agent: *\n"  # s'adresse à tous les robots
+        "Allow: /\n"  # ils peuvent explorer tout le site...
+        "Disallow: /admin/\n"  # ...sauf l'admin de Wagtail, inutile dans Google
+        "Disallow: /django-admin/\n"  # ...et l'admin de Django
+        # adresse complète du sitemap (le domaine change seul une fois en ligne)
+        "Sitemap: " + request.build_absolute_uri("/sitemap.xml") + "\n"
+    )
+    return HttpResponse(content, content_type="text/plain")
+
+
 urlpatterns = [
     path("django-admin/", admin.site.urls),
     # MODIF : nouvelle ligne. Elle intercepte l'adresse de suppression des envois
@@ -58,6 +75,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path("sitemap.xml", sitemap),  # déclaration du path sitemap
+    path("robots.txt", robots_txt),  # MODIF : fichier pour les robots des moteurs de recherche
 ]
 
 

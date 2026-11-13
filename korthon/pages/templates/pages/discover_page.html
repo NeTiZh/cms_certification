@@ -17,8 +17,8 @@
         <div class="categories-blocs">
         {% for category in categories %}
             <a class="categorie-bloc" href="{% pageurl category %}">
-                {% if category.screenshot %}
-                    {% image category.screenshot width-600 %}
+                {% if category.image %}
+                    {% image category.image width-600 alt=category.image_alt %}
                 {% endif %}
                 <h2>{{ category.title }}</h2>
                 {{ category.intro|richtext }}
@@ -33,7 +33,7 @@
             {% endif %}
             {% if settings.pages.SiteSettings.invite_link %}
                 <a class="bouton" href="{{ settings.pages.SiteSettings.invite_link }}" target="_blank" rel="noopener">
-                    Ajouter à mon serveur ↗
+                    Ajouter à mon serveur <span aria-hidden="true">↗</span><span class="sr-only"> (nouvel onglet)</span>
                 </a>
             {% endif %}
         </div>

@@ -16,7 +16,7 @@
         {% for item in page.tagline_blocks.all %}
             <section class="accroche">
                 <p class="accroche_texte">{{ item.tagline }}</p>
-                {% image item.screenshot width-600 class="accroche_capture" %}
+                {% image item.image width-600 class="accroche_capture" alt=item.image_alt %}
             </section>
         {% endfor %}
 
@@ -27,7 +27,7 @@
             {% endif %}
             {% if settings.pages.SiteSettings.invite_link %}
                 <a class="bouton" href="{{ settings.pages.SiteSettings.invite_link }}" target="_blank" rel="noopener">
-                    Ajouter à mon serveur ↗
+                    Ajouter à mon serveur <span aria-hidden="true">↗</span><span class="sr-only"> (nouvel onglet)</span>
                 </a>
             {% endif %}
         </div>

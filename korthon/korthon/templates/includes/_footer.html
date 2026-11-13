@@ -12,7 +12,7 @@
     {% if settings.pages.SiteSettings.support_link %}
         <p>Le formulaire ne suffit pas ?
             <a href="{{ settings.pages.SiteSettings.support_link}}" target="_blank" rel="noopener noreferrer">
-                Discord de support ↗
+                Discord de support <span aria-hidden="true">↗</span><span class="sr-only"> (nouvel onglet)</span>
             </a>
         </p>
     {% endif %}

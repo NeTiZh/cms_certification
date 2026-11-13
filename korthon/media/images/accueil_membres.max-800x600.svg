@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 240.0 120.0" width="480.0" height="240.0">
+  <title>Accueil des membres</title>
+  <rect width="240" height="120" rx="12" fill="#f5ecd7" />
+  <circle cx="120" cy="60" r="54" fill="#efe0bd" />
+  
+  <rect x="24" y="100" width="192" height="3" rx="1.5" fill="#d4a43a" opacity=".6" />
+  <path d="M60 100 L48 112 H128 L116 100 Z" fill="#f0cf75" opacity=".55" />
+  
+  <path d="M56 100 V48 A32 32 0 0 1 120 48 V100 Z" fill="#2b1d12" />
+  <path d="M64 100 V50 A24 24 0 0 1 112 50 V100 Z" fill="#f0cf75" />
+  <path d="M64 100 V50 A24 24 0 0 1 76 30 V100 Z" fill="#d4a43a" opacity=".5" />
+  
+  <circle cx="90" cy="62" r="9" fill="#2b1d12" />
+  <path d="M74 100 C74 82 81 74 90 74 C99 74 106 82 106 100 Z" fill="#2b1d12" />
+  
+  <rect x="134" y="28" width="70" height="20" rx="10" fill="#d4a43a" />
+  <text x="169" y="42" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#2b1d12">Membre</text>
+  <rect x="134" y="54" width="54" height="20" rx="10" fill="#8a5a14" />
+  <text x="161" y="68" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#f5ecd7">VIP</text>
+  <rect x="134" y="80" width="62" height="20" rx="10" fill="#fff" stroke="#2b1d12" stroke-width="1.5" />
+  <text x="165" y="94" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#2b1d12">Joueur</text>
+  
+  <path d="M196 38 L196 56 L201 51 L205 59 L208.5 57.5 L204.5 49.5 L211 49 Z" fill="#fff" stroke="#2b1d12" stroke-width="2" stroke-linejoin="round" />
+</svg>

@@ -151,7 +151,7 @@ class DocumentationPage(Page):
 # Une catégorie de commandes (Général, Modération, etc..)
 class CategoryPage(Page):
     intro = RichTextField(blank=True, help_text="Présentation de la catégorie, affichée aussi sur la page Découvrir")
-    screenshot = models.ForeignKey(
+    image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
@@ -159,11 +159,16 @@ class CategoryPage(Page):
         related_name="+",
         help_text="Capture affichée dans le bloc de la catégorie sur la page Découvrir",
     )
+    image_alt = models.CharField(
+        max_length=255, blank=True,
+        help_text="Décrit ce que montre l'image, pour les lecteurs d'écran",
+    )
     show_on_discover = models.BooleanField(default=False, help_text="Afficher cette catégorie sur la page Découvrir")
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
-        FieldPanel("screenshot"),
+        FieldPanel("image"),
+        FieldPanel("image_alt"),
         FieldPanel("show_on_discover"),
         InlinePanel("commands", label="Commandes"),
     ]

@@ -42,7 +42,7 @@
     {% comment %} Bouton d'invitation du bot, affiché seulement si le lien est renseigné {% endcomment %}
     {% if settings.pages.SiteSettings.invite_link %}
         <a class="site-header_invitation bouton" href="{{ settings.pages.SiteSettings.invite_link }}" target="_blank" rel="noopener">
-            Ajouter<span class="texte-long"> à mon serveur</span> ↗
+            Ajouter<span class="texte-long"> à mon serveur</span> <span aria-hidden="true">↗</span><span class="sr-only"> (nouvel onglet)</span>
         </a>
     {% endif %}
 </header>
