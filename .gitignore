@@ -6,3 +6,4 @@ __pycache__/
 *.pyc
 NOTE_REPRISE.md
 rapport_certification_korthon.docx
+local.py
